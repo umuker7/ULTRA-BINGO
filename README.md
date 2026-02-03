@@ -1,31 +1,14 @@
 # ULTRA-BINGO
 
-Minimal repository for the ULTRA BINGO mini-app.
+Simple FastAPI backend + minimal frontend for sending an "Open Bingo" link to a Telegram chat.
 
-Setup (local):
+Quick start (mobile-friendly):
+1. In the repo on GitHub (open in your mobile browser), open the page and use "Request desktop site" to access Settings → Secrets and add BOT_TOKEN and CHAT_ID as repository secrets.
+2. On a machine (or cloud runner) run the backend with:
+   uvicorn backend.main:app --host 0.0.0.0 --port 8000 --reload
+3. Expose the running server with ngrok (ngrok http 8000) and copy the HTTPS URL.
+4. POST {"url":"https://your.app.link"} to /send_button to send a Telegram message with the link.
 
-1. Create a virtual environment and install dependencies:
-
-   python -m venv venv
-   source venv/bin/activate   # Windows: venv\Scripts\activate
-   pip install -r requirements.txt
-
-2. Set environment variables (do NOT commit real tokens):
-
-   export BOT_TOKEN="<your bot token>"
-   export CHAT_ID="<your chat id>"
-
-3. Run the backend:
-
-   uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
-
-4. (Optional) Use ngrok for telegram testing:
-
-   ngrok http 8000
-
-5. Send a POST /send_button to send a Telegram message with a link to the app:
-
-   curl -X POST http://localhost:8000/send_button -H "Content-Type: application/json" -d '{"url":"https://example.com"}'
-
-Security:
-- Keep BOT_TOKEN and CHAT_ID in environment variables or GitHub Secrets. Do NOT publish them in this repository.
+Notes:
+- Do NOT store BOT_TOKEN in the repository files. Use .env locally or GitHub Secrets for CI/deploy.
+- If you need, I can help set up Actions or a small deploy workflow.
